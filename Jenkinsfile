@@ -14,6 +14,9 @@ node {
             junit 'test-reports/results.xml' 
         }
     }
+    stage('Manual Approval') {
+        input message: 'Lanjutkan ke tahap Deploy? (klik "Proceed" untuk Deploy)'
+    }
     stage('Deploy') {
         withEnv(['VOLUME=$(pwd)/sources:/src', 'IMAGE=cdrx/pyinstaller-linux:python2']) {
             dir(path: env.BUILD_ID) { 
