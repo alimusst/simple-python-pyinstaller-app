@@ -22,6 +22,7 @@ node {
             dir(path: env.BUILD_ID) { 
                 unstash(name: 'compiled-results') 
                 sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'"
+                sh "pwd"
                 sleep(time:1, unit:"MINUTES")
             }
 
