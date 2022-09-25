@@ -29,6 +29,7 @@ node {
 
             try {
                 archiveArtifacts "${env.BUILD_ID}/sources/dist/add2vals" 
+                sh "ls -laR"
                 sh "docker run --rm -v ${VOLUME} ${IMAGE} 'rm -rf build dist'"
             } catch (e) {
                 throw e
