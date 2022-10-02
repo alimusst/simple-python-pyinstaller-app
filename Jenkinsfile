@@ -27,7 +27,7 @@ node {
                 sh "pwd"
                 sh "ls -lR"
                 sh ('''
-                    git add ./sources/dist
+                    git add -f ./sources/dist
                     git commit -m "deploy artifacts"
                     git push   
                 ''')
