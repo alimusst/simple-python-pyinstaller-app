@@ -25,7 +25,7 @@ node {
                 sh "git status"
                 sh "curl https://cli-assets.heroku.com/install-ubuntu.sh | sh"
                 sh "heroku --version"
-                sleep(time:1, unit:"MINUTES")
+                // sleep(time:1, unit:"MINUTES")
             }
 
             try {
