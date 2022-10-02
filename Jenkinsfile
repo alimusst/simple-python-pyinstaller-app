@@ -14,17 +14,16 @@ node {
             junit 'test-reports/results.xml' 
         }
     }
-    stage('Manual Approval') {
-        input message: 'Lanjutkan ke tahap Deploy? (klik "Proceed" untuk Deploy)'
-    }
+    // stage('Manual Approval') {
+    //     input message: 'Lanjutkan ke tahap Deploy? (klik "Proceed" untuk Deploy)'
+    // }
     stage('Deploy') {
         withEnv(['VOLUME=$(pwd)/sources:/src', 'IMAGE=cdrx/pyinstaller-linux:python2']) {
             dir(path: env.BUILD_ID) { 
                 unstash(name: 'compiled-results') 
                 sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'"
                 sh "git status"
-                sh "sudo curl https://cli-assets.heroku.com/install-ubuntu.sh | sh"
-                sh "heroku --version"
+                sh "npm install -g heroku"
                 // sleep(time:1, unit:"MINUTES")
             }
 
