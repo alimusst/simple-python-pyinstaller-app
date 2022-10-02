@@ -26,11 +26,13 @@ node {
                 sh "git config --list"
                 sh "pwd"
                 sh "ls -lR"
-                sh ('''
-                    git add -f ./sources/dist
-                    git commit -m "deploy artifacts"
-                    git push   
-                ''')
+                withCredentials([usernamePassword(credentialsId: 'heroku', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]){
+                    sh ('''
+                        git add -f ./sources/dist
+                        git commit -m "deploy artifacts"
+                        git push https://git.heroku.com/submission-cicd-alimustofa.git HEAD:refs/heads/master 
+                    ''')
+                }
             }
 
             try {
