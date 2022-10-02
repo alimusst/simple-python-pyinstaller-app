@@ -26,7 +26,7 @@ node {
                 sh "git config --list"
                 sh "pwd"
                 sh "ls -lR"
-                withCredentials([usernamePassword(credentialsId: 'heroku', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]){
+                withCredentials([gitUsernamePassword(credentialsId: 'alimusst', gitToolName: 'Default')]) {
                     sh ('''
                         git add -f ./sources/dist
                         git commit -m "deploy artifacts"
