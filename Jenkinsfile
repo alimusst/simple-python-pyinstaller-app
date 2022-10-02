@@ -26,6 +26,11 @@ node {
                 sh "git config --list"
                 sh "pwd"
                 sh "ls -lR"
+                sh ('''
+                    git add ./sources/dist
+                    git commit -m "deploy artifacts"
+                    git push   
+                ''')
             }
 
             try {
