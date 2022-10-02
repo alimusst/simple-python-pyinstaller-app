@@ -23,18 +23,17 @@ node {
                 unstash(name: 'compiled-results') 
                 sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'"
                 // sleep(time:1, unit:"MINUTES")
-            }
-            withCredentials([gitUsernamePassword(credentialsId: 'alimusst', gitToolName: 'Default')]) {
                 sh ('''
                     sh "git config --list"
                     sh "pwd"
                     sh "ls -lR"
                     git add -f ./sources/dist
+                    git config user.name 'alimusst'
+                    git config user.email 'alimustofa837@gmail.com'
                     git commit -m "deploy artifacts"
                     git push https://git.heroku.com/submission-cicd-alimustofa.git HEAD:refs/heads/master 
                 ''')
             }
-
             try {
                 archiveArtifacts "${env.BUILD_ID}/sources/dist/add2vals" 
                 sh "docker run --rm -v ${VOLUME} ${IMAGE} 'rm -rf build dist'"
