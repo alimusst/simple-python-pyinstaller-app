@@ -24,6 +24,8 @@ node {
                 sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'"
                 // sleep(time:1, unit:"MINUTES")
                 sh "git config --list"
+                sh "pwd"
+                sh "ls -lR"
             }
 
             try {
