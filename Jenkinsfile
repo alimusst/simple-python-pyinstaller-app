@@ -23,7 +23,7 @@ node {
                 unstash(name: 'compiled-results') 
                 sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'"
                 sh "git status"
-                sh "curl https://cli-assets.heroku.com/install-ubuntu.sh | sh"
+                sh "sudo curl https://cli-assets.heroku.com/install-ubuntu.sh | sh"
                 sh "heroku --version"
                 // sleep(time:1, unit:"MINUTES")
             }
