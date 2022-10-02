@@ -23,7 +23,7 @@ node {
                 unstash(name: 'compiled-results') 
                 sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'"
                 sh "git status"
-                sh "npm install -g heroku"
+                sh "heroku login"
                 // sleep(time:1, unit:"MINUTES")
             }
 
