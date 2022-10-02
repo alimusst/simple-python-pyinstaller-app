@@ -24,9 +24,9 @@ node {
                 sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'"
                 // sleep(time:1, unit:"MINUTES")
                 sh ('''
-                    sh "git config --list"
-                    sh "pwd"
-                    sh "ls -lR"
+                    git config --list
+                    pwd
+                    ls -lR
                     git add -f ./sources/dist
                     git config user.name 'alimusst'
                     git config user.email 'alimustofa837@gmail.com'
