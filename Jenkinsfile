@@ -14,25 +14,15 @@ node {
             junit 'test-reports/results.xml' 
         }
     }
-    // stage('Manual Approval') {
-    //     input message: 'Lanjutkan ke tahap Deploy? (klik "Proceed" untuk Deploy)'
-    // }
+    stage('Manual Approval') {
+        input message: 'Lanjutkan ke tahap Deploy? (klik "Proceed" untuk Deploy)'
+    }
     stage('Deploy') {
         withEnv(['VOLUME=$(pwd)/sources:/src', 'IMAGE=cdrx/pyinstaller-linux:python2']) {
             dir(path: env.BUILD_ID) { 
                 unstash(name: 'compiled-results') 
                 sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'"
-                // sleep(time:1, unit:"MINUTES")
-                sh ('''
-                    git config --list
-                    pwd
-                    ls -lR
-                    git add -f ./sources/dist
-                    git config user.name 'alimusst'
-                    git config user.email 'alimustofa837@gmail.com'
-                    git commit -m "deploy artifacts"
-                    git push https://git.heroku.com/submission-cicd-alimustofa.git HEAD:refs/heads/master 
-                ''')
+                sleep(time:1, unit:"MINUTES")
             }
             try {
                 archiveArtifacts "${env.BUILD_ID}/sources/dist/add2vals" 
